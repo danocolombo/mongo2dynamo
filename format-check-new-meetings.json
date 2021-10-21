@@ -1,0 +1,111 @@
+{
+    "Meetings": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "_id": {
+                        "$oid": "5eb7f16783dfcc014985c0c9"
+                    },
+                    "oldID": 46,
+                    "tenantId": "meeting-cpv",
+                    "meetingDate": {
+                        "$date": "2018-06-25T00:00:00Z"
+                    },
+                    "meetingType": "Lesson",
+                    "title": "13 - Admit",
+                    "facilitator": "Keith Doyle",
+                    "attendance": 69,
+                    "worship": "Butler Caldwell",
+                    "meal": "Soup",
+                    "mealCount": 0,
+                    "nursery": 13,
+                    "children": 5,
+                    "youth": 8,
+                    "notes": "8 Older children -Taylor Hendricks\n5 younger children - Shelly Sweat ",
+                    "donations": {
+                        "$numberDecimal": "42"
+                    }
+                }
+            },
+            {
+                "PutRequest": {
+                    "Item": {
+                        "_id": {
+                            "$oid": "5eb7f16783dfcc014985c0d6"
+                        },
+                        "oldID": 60,
+                        "tenantId": "meeting-cpv",
+                        "meetingDate": {
+                            "$date": "2018-10-08T00:00:00Z"
+                        },
+                        "meetingType": "Testimony",
+                        "title": "Minimonies - Step Study gradua",
+                        "facilitator": "Missy Turner",
+                        "attendance": 79,
+                        "worship": "Spence Parkerson",
+                        "meal": "Sausage potato soup",
+                        "mealCount": 0,
+                        "nursery": 0,
+                        "children": 11,
+                        "youth": 0,
+                        "notes": "Erin leading with spence\n\n6 younger \n5 older",
+                        "donations": {
+                            "$numberDecimal": "45.05"
+                        }
+                    },
+                    {
+                        "PutRequest": {
+                            "Item": {
+                                "_id": {
+                                    "$oid": "5eb7f16783dfcc014985c0bf"
+                                },
+                                "oldID": 34,
+                                "tenantId": "meeting-cpv",
+                                "meetingDate": {
+                                    "$date": "2018-04-09T00:00:00Z"
+                                },
+                                "meetingType": "Testimony",
+                                "title": "Keith Doyle",
+                                "facilitator": "Missy Turner",
+                                "attendance": 67,
+                                "worship": "Butler Caldwell",
+                                "meal": "",
+                                "mealCount": 0,
+                                "nursery": 0,
+                                "children": 0,
+                                "youth": 0,
+                                "notes": "",
+                                "donations": {
+                                    "$numberDecimal": "0"
+                                }
+                            },
+                            {
+                                "PutRequest": {
+                                    "Item": {
+                                        "_id": {
+                                            "$oid": "5eb7f16783dfcc014985c0da"
+                                        },
+                                        "oldID": 54,
+                                        "tenantId": "meeting-cpv",
+                                        "meetingDate": {
+                                            "$date": "2018-08-27T00:00:00Z"
+                                        },
+                                        "meetingType": "Testimony",
+                                        "title": "David Rogers",
+                                        "facilitator": "Missy Turner",
+                                        "attendance": 96,
+                                        "worship": "Butler Caldwell",
+                                        "meal": "Chili",
+                                        "mealCount": 0,
+                                        "nursery": 0,
+                                        "children": 13,
+                                        "youth": 0,
+                                        "notes": "7 younger children (Ali Parker) \n6 older children (Jessye Raye)",
+                                        "donations": {
+                                            "$numberDecimal": "117.6"
+                                        }
+                                    },
+                                }
+                            }
+                        ]
+                    }

@@ -1,0 +1,28 @@
+{
+  "people": [
+    {
+      "name": "Joe",
+      "age": 33,
+      "story": true,
+      "home": "house"
+    },
+    {
+      "name": "Mary",
+      "age": 30,
+      "story": false,
+      "home": "penthouse"
+    },
+    {
+      "name": "Mark",
+      "age": 28,
+      "story": true,
+      "home": "tent"
+    },
+    {
+      "name": "Sue",
+      "age": 38,
+      "story": false,
+      "home": "shanty"
+    }
+  ]
+}
