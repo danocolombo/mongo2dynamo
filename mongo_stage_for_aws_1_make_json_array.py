@@ -1,6 +1,6 @@
 # This creates output file as array of Meetings in JSON format
-def gen_file_name(filenum):
-    temp = 'aws-input-file' + str(filenum) + '.json'
+def gen_file_name(file_number):
+    temp = './json_files/aws-ready-files/aws-input-file' + str(file_number) + '.json'
     return temp
 
 
@@ -25,17 +25,21 @@ def write_record(fp, record, comma):
     fp.writelines(record_to_write)
 
 
+# =========================================
+# Set up the definitions for processing
+# =========================================
+file_limit = 25  # number of lines from origin to put in new files
 file_size = 0  # used for writing location
-file_limit = 50  # number of lines from origin to put in new files
 file_count = 1  # used to create the files names
 file_pointer = 0
+
 # file to read
-input_file = "mongo-meetings-small.json"
+input_file = "./json_files/mongo-export-files/mongo-meetings-small.json"
 # get the size of the file
 f = open(input_file)
 num_lines = sum(1 for line in f)
 f.close()
-
+print(f"records: {num_lines}")
 # now read through the file
 f = open(input_file)
 for x in f:
