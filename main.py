@@ -5,7 +5,7 @@ import m2d_3_add_dynamodb_data_types
 import m2d_4_rename_fields
 
 try:
-    # create json compliant files
+    # convert the Meetings data
     if m2d_1_json_files.create_json_compliant_files():
         print(f"1. mongo data transformed to json [aws-ready-files produced]")
         # strip out the mongo data types
@@ -23,6 +23,8 @@ try:
             print(f"ERROR REMOVING DATA TYPES")
     else:
         raise Exception('create_json_compliant_files(): error')
+    # convert the groups data
+    # convert the users data
 
 except Exception as err:
     print(f"{err}")
