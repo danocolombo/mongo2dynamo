@@ -3,7 +3,7 @@ import glob
 
 # This creates output file as array of Meetings in JSON format
 def gen_file_name(file_number):
-    temp = './json_files/aws-ready-files/aws-input-file' + str(file_number) + '.json'
+    temp = './json_files/aws-ready-files/aws-meetings-file' + str(file_number) + '.json'
     return temp
 
 

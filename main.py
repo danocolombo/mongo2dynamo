@@ -1,4 +1,4 @@
- # mongo2dynamo conversion
+# mongo2dynamo conversion
 import m2d_1_json_files
 import m2d_2_remove_mongo_data_types
 import m2d_3_add_dynamodb_data_types

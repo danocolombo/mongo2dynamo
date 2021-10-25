@@ -64,7 +64,7 @@ def change_field_names():
             the_entry['mealCount'] = the_entry.pop('mealCnt')
 
             # mealCoordinator => mealContact
-            the_entry['mealConmtact'] = the_entry.pop('mealCoordinator')
+            the_entry['mealContact'] = the_entry.pop('mealCoordinator')
 
             # newcomers => newcomersCount
             the_entry['newcomersCount'] = the_entry.pop('newcomers')
