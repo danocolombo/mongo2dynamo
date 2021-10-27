@@ -1,0 +1,15 @@
+{"_id":{"$oid":"6164bc0b2978bcea3009ac4d"},"gender":"f","mid":"60ff37153e53450c960b6f0f","title":"A-Z","__v":0,"attendance":0,"cofacilitator":"","facilitator":"Joni","location":"Choir Room","notes":""}
+{"_id":{"$oid":"6164bc0b2978bcea3009ac67"},"gender":"m","mid":"60ff37153e53450c960b6f0f","title":"A-Z","__v":0,"attendance":0,"cofacilitator":"","facilitator":"Rob","location":"Hallway - Right","notes":""}
+{"_id":{"$oid":"6164bc0b2978bcea3009ac7d"},"gender":"x","mid":"60ff37153e53450c960b6f0f","title":"Newcomers 101","__v":0,"attendance":0,"cofacilitator":"","facilitator":"","location":"","notes":""}
+{"_id":{"$oid":"6164bc2d2978bcea3009b8c3"},"gender":"f","mid":"60ff37153e53450c960b6f0f","title":"Dway 1","__v":0,"attendance":9,"cofacilitator":"","facilitator":"Angela","location":"Right","notes":""}
+{"_id":{"$oid":"6164bc4f2978bcea3009c5a0"},"gender":"f","mid":"60ff37153e53450c960b6f0f","title":"Dway 2","__v":0,"attendance":10,"cofacilitator":"","facilitator":"Savanna ","location":"Left","notes":""}
+{"_id":{"$oid":"616df26f2978bcea30dfedbc"},"gender":"f","mid":"6164b6fa2978bcea3007acb8","title":"A-Z","__v":0,"attendance":0,"cofacilitator":"","facilitator":"Joni","location":"Choir Room","notes":""}
+{"_id":{"$oid":"616df2702978bcea30dfedd9"},"gender":"m","mid":"6164b6fa2978bcea3007acb8","title":"A-Z","__v":0,"attendance":0,"cofacilitator":"","facilitator":"Rob","location":"Hallway - Right","notes":""}
+{"_id":{"$oid":"616df2702978bcea30dfedf5"},"gender":"x","mid":"6164b6fa2978bcea3007acb8","title":"Newcomers 101","__v":0,"attendance":0,"cofacilitator":"","facilitator":"","location":"","notes":""}
+{"_id":{"$oid":"616df28a2978bcea30dff855"},"gender":"f","mid":"6164b6fa2978bcea3007acb8","title":"Dway 1","__v":0,"attendance":9,"cofacilitator":"","facilitator":"","location":"Right side","notes":""}
+{"_id":{"$oid":"616df2a12978bcea30e00067"},"gender":"f","mid":"6164b6fa2978bcea3007acb8","title":"Dway 2","__v":0,"attendance":9,"cofacilitator":"","facilitator":"","location":"Left","notes":""}
+{"_id":{"$oid":"61772e171fda63b7c570a9e4"},"gender":"f","mid":"6164b7322978bcea3007c1bd","title":"A-Z","__v":0,"attendance":4,"cofacilitator":"","facilitator":"Joni","location":"Choir Room","notes":""}
+{"_id":{"$oid":"61772e171fda63b7c570a9fe"},"gender":"m","mid":"6164b7322978bcea3007c1bd","title":"A-Z","__v":0,"attendance":0,"cofacilitator":"","facilitator":"Bubba","location":"Hallway - Right","notes":""}
+{"_id":{"$oid":"61772e171fda63b7c570aa21"},"gender":"x","mid":"6164b7322978bcea3007c1bd","title":"Newcomers 101","__v":0,"attendance":0,"cofacilitator":"","facilitator":"","location":"","notes":""}
+{"_id":{"$oid":"61772e4a1fda63b7c570c098"},"gender":"f","mid":"6164b7322978bcea3007c1bd","title":"Dway","__v":0,"attendance":10,"cofacilitator":"","facilitator":"Savanna ","location":"Right","notes":""}
+{"_id":{"$oid":"61772e641fda63b7c570cd94"},"gender":"f","mid":"6164b7322978bcea3007c1bd","title":"Dway ","__v":0,"attendance":7,"cofacilitator":"","facilitator":"","location":"Left","notes":""}
