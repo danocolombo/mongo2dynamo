@@ -1,8 +1,9 @@
 import json
 import os
 
+
 def write_file_header(fp):
-    header_data = "{\"Meetings\":[\n"
+    header_data = "{\"Groups\":[\n"
     fp.writelines(header_data)
 
 
@@ -16,12 +17,13 @@ def write_record(fp, record, comma):
 
     fp.writelines(record_to_write)
 
+
 def write_file_footer(fp):
     fp.writelines("]}")
 
 
 def change_field_names():
-    file_directory = './json_files/aws-ready-files/'
+    file_directory = './json_files/aws-ready-files/groups/'
     aws_files = []
     for entry in os.listdir(file_directory):
         if os.path.isfile(os.path.join(file_directory, entry)):
@@ -40,46 +42,18 @@ def change_field_names():
         # list
         f = open(full_file_name, "w")
         write_file_header(f)
-        for entry in data['Meetings']:
+        for entry in data['Groups']:
             the_entry = entry
-            # the_meeting = json.dumps(entry)
-            # fresh_meeting = list(the_meeting)
+            the_entry['groupId'] = the_entry.pop('_id')
 
-            # _id => meetingId
-            the_entry['meetingId'] = the_entry.pop('_id')
+            # mid => meetingId
+            the_entry['meetingId'] = the_entry.pop('mid')
 
             # attendance => attendanceCount
             the_entry['attendanceCount'] = the_entry.pop('attendance')
 
-            # facilitator => facilitatorContact
-            the_entry['facilitatorContact'] = the_entry.pop('facilitator')
-
-            # cafeCoordinator => cafeContact
-            the_entry['cafeContact'] = the_entry.pop('cafeCoordinator')
-
-            # children => childrenCount
-            the_entry['childrenCount'] = the_entry.pop('children')
-
-            # mealCnt => mealCount
-            the_entry['mealCount'] = the_entry.pop('mealCnt')
-
-            # mealCoordinator => mealContact
-            the_entry['mealContact'] = the_entry.pop('mealCoordinator')
-
-            # newcomers => newcomersCount
-            the_entry['newcomersCount'] = the_entry.pop('newcomers')
-
-            # nursery => nurseryCount
-            the_entry['nurseryCount'] = the_entry.pop('nursery')
-
-            # supportRole => supportContact
-            the_entry['supportContact'] = the_entry.pop('supportRole')
-
-            # youth => youthCount
-            the_entry['youthCount'] = the_entry.pop('youth')
-
-           # write the record, add comma unless last record
-            write_record(f,the_entry,entry != data['Meetings'][-1])
+            # write the record, add comma unless last record
+            write_record(f, the_entry, entry != data['Groups'][-1])
         write_file_footer(f)
         f.close()
     return True

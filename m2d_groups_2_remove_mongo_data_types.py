@@ -17,7 +17,7 @@ def clean_meeting_date(toxic):
 
 
 def write_file_header(fp):
-    header_data = "{\"Meetings\":[\n"
+    header_data = "{\"Groups\":[\n"
     fp.writelines(header_data)
 
 
@@ -31,12 +31,13 @@ def write_record(fp, record, comma):
 
     fp.writelines(record_to_write)
 
+
 def write_file_footer(fp):
     fp.writelines("]}")
 
 
 def remove_mongo_data_types():
-    file_directory = './json_files/aws-ready-files/'
+    file_directory = './json_files/aws-ready-files/groups/'
     aws_files = []
     for entry in os.listdir(file_directory):
         if os.path.isfile(os.path.join(file_directory, entry)):
@@ -55,21 +56,19 @@ def remove_mongo_data_types():
         # list
         f = open(full_file_name, "w")
         write_file_header(f)
-        for entry in data['Meetings']:
+        for entry in data['Groups']:
             the_entry = entry
-            the_meeting = json.dumps(entry)
-            fresh_meeting = list(the_meeting)
+            # the_group = json.dumps(entry)
+            # fresh_group = list(the_group)
 
             # REMOVE MONGO __v
             the_entry.pop("__v")
             # CLEAN ID
             the_entry['_id'] = clean_id(the_entry['_id'])
-            # CLEAN meetingDate
-            the_entry['meetingDate'] = clean_meeting_date(the_entry['meetingDate'])
 
-           # write the record, add comma unless last record
-            write_record(f,the_entry,entry != data['Meetings'][-1])
+
+            # write the record, add comma unless last record
+            write_record(f, the_entry, entry != data['Groups'][-1])
         write_file_footer(f)
         f.close()
     return True
-

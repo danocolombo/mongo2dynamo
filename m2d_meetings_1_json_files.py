@@ -1,9 +1,10 @@
 import os
 import glob
 
+
 # This creates output file as array of Meetings in JSON format
 def gen_file_name(file_number):
-    temp = './json_files/aws-ready-files/aws-meetings-file' + str(file_number) + '.json'
+    temp = './json_files/aws-ready-files/meetings/aws-meetings-file' + str(file_number) + '.json'
     return temp
 
 
@@ -71,6 +72,7 @@ def output_directory_confirmed(output_directory):
     except (ZeroDivisionError, TypeError) as err:
         print(f'error: {err}')
 
+
 def create_json_compliant_files():
     # =========================================
     # Set up the definitions for processing
@@ -85,7 +87,7 @@ def create_json_compliant_files():
     input_file_name = "mongo-meetings-small.json"
     input_file = f"{input_directory}{input_file_name}"
     # directory location for output files
-    output_directory = "./json_files/aws-ready-files/meetings/"
+    output_directory = "./json_files/aws-ready-files/meetings"
 
     if not check_input_file(input_directory, input_file_name):
         # no input file found...

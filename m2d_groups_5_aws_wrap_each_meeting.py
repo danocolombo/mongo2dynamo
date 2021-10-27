@@ -3,7 +3,7 @@ import os
 
 
 def write_file_header(fp):
-    header_data = "{\"meeter-meetings\":[\n"
+    header_data = "{\"meeter-groups\":[\n"
     fp.writelines(header_data)
 
 
@@ -25,7 +25,7 @@ def write_file_footer(fp):
 
 
 def dynamodb_wrapper():
-    file_directory = './json_files/aws-ready-files/'
+    file_directory = './json_files/aws-ready-files/groups/'
     aws_files = []
     for entry in os.listdir(file_directory):
         if os.path.isfile(os.path.join(file_directory, entry)):
@@ -44,11 +44,11 @@ def dynamodb_wrapper():
         # list
         f = open(full_file_name, "w")
         write_file_header(f)
-        for entry in data['Meetings']:
+        for entry in data['Groups']:
             the_entry = entry
 
             # write the record, add comma unless last record
-            write_record(f, the_entry, entry != data['Meetings'][-1])
+            write_record(f, the_entry, entry != data['Groups'][-1])
         write_file_footer(f)
         f.close()
     return True

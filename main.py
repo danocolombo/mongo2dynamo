@@ -43,8 +43,7 @@ except Exception as err:
 finally:
     print("mongo2dynamo: Meetings converted and ready")
 
-exit(0)
-# DO GREETINGS
+# DO GROUPS
 try:
     # convert the Greetings data
     if m2d_groups_1_json_files.create_json_compliant_files():
