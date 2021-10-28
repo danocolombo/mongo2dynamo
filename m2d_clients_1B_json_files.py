@@ -1,11 +1,83 @@
 import os
+import json
 import glob
+
+
+def clean_id(toxic):
+    # this gets dict value for id
+    actual_value = toxic['$oid']
+    return actual_value
+
+
+def analyze_record(record):
+    client_info = json.loads(record)
+    # print(f"client_info type: {type(client_info)}")
+    # print(f"Church: {client_info['name']}")
+    # client_id = client_info["id"]["$oid"]
+    # print(f"clientId: {client_id}")
+    # how many keys are at the root level?
+    # print(f"length of client_into: {len(client_info)}")
+    # client_info_keys = client_info.keys()
+
+    # for x in client_info_keys:
+    #     print(f"{x}: {client_info[x]}")
+
+    # get the key value types
+    # print(f"-------------------------")
+    # for x in client_info_keys:
+    #     print(f"{x}: {type(client_info[x])}")
+    # print(f"-------------------------")
+    # ===================================
+    # do we have a specific key?? Remove it from dict
+    # ===================================
+    if "connection" in client_info:
+        client_info.pop("connection")
+    # ===============================================
+    # get client related information we want to save
+    # ===============================================
+    client_id = client_info["_id"]["$oid"]
+    client_name = client_info["name"]
+    client_code = client_info["code"]
+    print(f"******************")
+    print(f"client_id: {client_id}")
+    print(f"client_name: {client_name}")
+    print(f"client_code: {client_code}")
+    print(f"******************")
+
+    # ================================================
+    # get the mConfigs for the users
+    # ================================================
+    if "users" in client_info:
+        client_users = []
+        read_users = client_info["users"]
+        # need to remove the mongo data type for id
+        for x in read_users:
+            stripped_id = clean_id(x["_id"])
+            print(f"x[\"id\"]: {x['id']}")
+            client_users.insert(str(f"id: {stripped_id}"))
+        print(f'UUUUUUUUUUUUUUUUUUUUUUUUUU')
+        print(f"users:\n{client_users}")
+        print(f'UUUUUUUUUUUUUUUUUUUUUUUUUU')
+
+    # ================================================
+    # now check if there are default groups defined
+    # ================================================
+
+    # ===================================
+    # print the whole structure
+    # ===================================
+    print(f"******************\n{client_info}\n****************")
+    # for x, y in client_info.items():
+    #     print(f"key: {x} - value: {y}")
+    # # client_info["id"] = client_info.pop("_id")
+    # # print(f"id: {client_info['id']}")
+    return True
 
 
 # This creates output file as array of Meetings in JSON format
 def gen_file_name(file_number):
     temp = './json_files/aws-ready-files/clients/aws-clients-file' + \
-        str(file_number) + '.json'
+           str(file_number) + '.json'
     return temp
 
 
@@ -120,6 +192,12 @@ def create_json_compliant_files():
                 add_comma = False
             else:
                 add_comma = True
+            if analyze_record(file_record):
+                print(f"PASSED")
+                exit(0)
+            else:
+                print(f"FAILED")
+                exit(1)
             write_record(out_file, file_record, add_comma)
             file_size += 1
             if file_size == file_limit or file_pointer == num_lines:

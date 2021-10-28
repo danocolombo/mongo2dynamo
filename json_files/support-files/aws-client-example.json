@@ -1,0 +1,133 @@
+{
+ "clientId": {
+  "S": "5ee16596c1583dee0d7a6cae"
+ },
+ "clientName": {
+  "S": "The Church"
+ },
+ "configs": {
+  "L": [
+   {
+    "M": {
+     "config": {
+      "S": "setupCoordinator"
+     },
+     "value": {
+      "BOOL": true
+     }
+    }
+   },
+   {
+    "M": {
+     "config": {
+      "S": "cook"
+     },
+     "value": {
+      "BOOL": true
+     }
+    }
+   },
+   {
+    "M": {
+     "config": {
+      "S": "gardener"
+     },
+     "value": {
+      "BOOL": false
+     }
+    }
+   },
+   {
+    "M": {
+     "config": {
+      "S": "maid"
+     },
+     "value": {
+      "BOOL": false
+     }
+    }
+   }
+  ]
+ },
+ "defaultGroups": {
+  "L": [
+   {
+    "M": {
+     "location": {
+      "S": "101"
+     },
+     "gender": {
+      "S": "f"
+     },
+     "title": {
+      "S": "A-Z"
+     },
+     "facilitator": {
+      "S": "Joni"
+     }
+    }
+   },
+   {
+    "M": {
+     "location": {
+      "S": "312"
+     },
+     "gender": {
+      "S": "m"
+     },
+     "title": {
+      "S": "A-Z"
+     },
+     "facilitator": {
+      "S": "Mark"
+     }
+    }
+   }
+  ]
+ },
+ "clientCode": {
+  "S": "TC"
+ },
+ "users": {
+  "L": [
+   {
+    "M": {
+     "userId": {
+      "S": "5e41d13e0df89d2baa231572"
+     },
+     "role": {
+      "S": "superuser"
+     },
+     "status": {
+      "S": "approved"
+     }
+    }
+   },
+   {
+    "M": {
+     "userId": {
+      "S": "5ed453943b6a2717492333b9"
+     },
+     "role": {
+      "S": "owner"
+     },
+     "status": {
+      "S": "approved"
+     }
+    }
+   },
+   {
+    "M": {
+     "userId": {
+     },
+     "role": {
+      "S": "guest"
+     },
+     "status": {
+      "S": "pending"
+     }
+    }
+   }
+  ]
+ }
+}
