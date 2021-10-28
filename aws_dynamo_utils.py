@@ -11,3 +11,11 @@ def identify_field(field, field_type):
     # get string, need to return list
     new_value = {f"{field_type}": str(field)}
     return (new_value)
+
+
+def search_dict(table, field):
+    # this returns True if field is in dict
+    if field in table.keys():
+        return True
+    else:
+        return False

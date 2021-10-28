@@ -39,16 +39,19 @@ def add_dynamo_data_types():
         # a dictionary
         data = json.load(f)
         f.close()
-        # Iterating through the json
-        # list
+
         f = open(full_file_name, "w")
         write_file_header(f)
         for entry in data['Clients']:
             the_entry = entry
-            the_entry['_id'] = aws_dynamo_utils.label_as_string(the_entry['_id'])
-            the_entry['name'] = aws_dynamo_utils.identify_field(the_entry['name'], "S")
-            the_entry['code'] = aws_dynamo_utils.identify_field(the_entry['code'], "S")
-            the_entry['connection'] = aws_dynamo_utils.identify_field(the_entry['connection'], "S")
+            if aws_dynamo_utils.search_dict(the_entry, "_id"):
+                the_entry['_id'] = aws_dynamo_utils.label_as_string(the_entry['_id'])
+            if aws_dynamo_utils.search_dict(the_entry, "name"):
+                the_entry['name'] = aws_dynamo_utils.identify_field(the_entry['name'], "S")
+            if aws_dynamo_utils.search_dict(the_entry, "code"):
+                the_entry['code'] = aws_dynamo_utils.identify_field(the_entry['code'], "S")
+            if aws_dynamo_utils.search_dict(the_entry, "connection"):
+                the_entry['connection'] = aws_dynamo_utils.identify_field(the_entry['connection'], "S")
             # the_entry['attendance'] = aws_dynamo_utils.identify_field(the_entry['attendance'], "N")
             # the_entry['cofacilitator'] = aws_dynamo_utils.identify_field(the_entry['cofacilitator'], "S")
             # the_entry['facilitator'] = aws_dynamo_utils.identify_field(the_entry['facilitator'], "S")
@@ -56,7 +59,7 @@ def add_dynamo_data_types():
             # the_entry['notes'] = aws_dynamo_utils.identify_field(the_entry['notes'], "S")
 
             # write the record, add comma unless last record
-            write_record(f, the_entry, entry != data['Groups'][-1])
+            write_record(f, the_entry, entry != data['Clients'][-1])
         write_file_footer(f)
         f.close()
     return True
