@@ -1,14 +1,15 @@
 import os
 import glob
 
+
 # This creates output file as array of Meetings in JSON format
 def gen_file_name(file_number):
-    temp = './json_files/aws-ready-files/aws-meetings-file' + str(file_number) + '.json'
+    temp = './json_files/aws-ready-files/clients/aws-clients-file' + str(file_number) + '.json'
     return temp
 
 
 def write_file_header(fp):
-    header_data = "{\"Meetings\":[\n"
+    header_data = "{\"Clients\":[\n"
     fp.writelines(header_data)
 
 
@@ -71,6 +72,7 @@ def output_directory_confirmed(output_directory):
     except (ZeroDivisionError, TypeError) as err:
         print(f'error: {err}')
 
+
 def create_json_compliant_files():
     # =========================================
     # Set up the definitions for processing
@@ -81,11 +83,11 @@ def create_json_compliant_files():
     file_pointer = 0
 
     # file to read
-    input_directory = "./json_files/mongo-export-files/"
-    input_file_name = "mongo-meetings-small.json"
+    input_directory = "./json_files/mongo-export-files/clients/"
+    input_file_name = "mongo-clients.json"
     input_file = f"{input_directory}{input_file_name}"
     # directory location for output files
-    output_directory = "./json_files/aws-ready-files"
+    output_directory = "./json_files/aws-ready-files/clients"
 
     if not check_input_file(input_directory, input_file_name):
         # no input file found...

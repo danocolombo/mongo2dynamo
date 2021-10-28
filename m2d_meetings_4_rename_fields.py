@@ -21,7 +21,7 @@ def write_file_footer(fp):
 
 
 def change_field_names():
-    file_directory = './json_files/aws-ready-files/'
+    file_directory = './json_files/aws-ready-files/meetings/'
     aws_files = []
     for entry in os.listdir(file_directory):
         if os.path.isfile(os.path.join(file_directory, entry)):
