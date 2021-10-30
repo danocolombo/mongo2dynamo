@@ -1,5 +1,5 @@
 # mongo2dynamo conversion
-import m2d_clients_1B_json_files
+import m2d_clients_0_complete
 import m2d_clients_1_json_files
 import m2d_clients_2_remove_mongo_data_types
 import m2d_clients_3_add_dynamodb_data_types
@@ -8,10 +8,12 @@ import m2d_clients_5_aws_wrap_each_meeting
 
 debug = True
 if debug:
-    if m2d_clients_1B_json_files.create_json_compliant_files():
-        print(f"IT WORKED")
+    if m2d_clients_0_complete.convert_client_definitions():
+        print(f"ready to be done")
+        exit(0)
     else:
-        print(f"NA-DA")
+        print("unexpected")
+        exit(-1)
 else:
     # DO CLIENTS
     try:

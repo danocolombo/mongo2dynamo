@@ -11,24 +11,9 @@ def clean_id(toxic):
 
 def analyze_record(record):
     client_info = json.loads(record)
-    # print(f"client_info type: {type(client_info)}")
-    # print(f"Church: {client_info['name']}")
-    # client_id = client_info["id"]["$oid"]
-    # print(f"clientId: {client_id}")
-    # how many keys are at the root level?
-    # print(f"length of client_into: {len(client_info)}")
-    # client_info_keys = client_info.keys()
-
-    # for x in client_info_keys:
-    #     print(f"{x}: {client_info[x]}")
-
-    # get the key value types
-    # print(f"-------------------------")
-    # for x in client_info_keys:
-    #     print(f"{x}: {type(client_info[x])}")
-    # print(f"-------------------------")
+    aws_client = {}
     # ===================================
-    # do we have a specific key?? Remove it from dict
+    # remove connection value
     # ===================================
     if "connection" in client_info:
         client_info.pop("connection")
@@ -38,40 +23,75 @@ def analyze_record(record):
     client_id = client_info["_id"]["$oid"]
     client_name = client_info["name"]
     client_code = client_info["code"]
-    print(f"******************")
-    print(f"client_id: {client_id}")
-    print(f"client_name: {client_name}")
-    print(f"client_code: {client_code}")
-    print(f"******************")
+    # print(f"******************")
+    # print(f"client_id: {client_id}")
+    # print(f"client_name: {client_name}")
+    # print(f"client_code: {client_code}")
 
     # ================================================
-    # get the mConfigs for the users
+    # get the user definitions for the client
     # ================================================
     if "users" in client_info:
         client_users = []
         read_users = client_info["users"]
-        # need to remove the mongo data type for id
         for x in read_users:
             stripped_id = clean_id(x["_id"])
-            print(f"x[\"id\"]: {x['id']}")
-            client_users.insert(str(f"id: {stripped_id}"))
-        print(f'UUUUUUUUUUUUUUUUUUUUUUUUUU')
-        print(f"users:\n{client_users}")
-        print(f'UUUUUUUUUUUUUUUUUUUUUUUUUU')
+            group_info = {"userId": {"S": stripped_id}, "role": {"S": x['role']}, "status": {"S": x['status']}}
+            client_users.append(group_info)
+            
+        # print(f"users: {client_users}\n")
 
     # ================================================
-    # now check if there are default groups defined
+    # get the default groups information
     # ================================================
+    if "defaultGroups" in client_info:
+        client_groups = []
+        read_groups = client_info["defaultGroups"]
+        # need to remove the mongo data type for id
+        
+        for x in read_groups:
+            stripped_id = clean_id(x["_id"])
+            client_groups.append({"group_id": {"S": stripped_id}, "gender": {"S": x['gender']}, "title": {"S": x['title']}, "location": {"S":x['location']}, "facilitator": {"S": x['facilitator']}})
+            
+            # client_users.insert(str(f"id: {stripped_id}"))
+
+        # print(f"default_groups: {client_groups}\n")    
+
+    # ================================================
+    # now check for mConfigs
+    # ================================================
+    if "mConfigs" in client_info:
+        client_configs = {}
+        for x in client_info["mConfigs"]:
+            config_setting = {}
+            the_config = ""
+            the_value = ""
+            for k, v in x.items():
+                if k == "config":
+                    the_config = v
+                elif k == "value":
+                    the_value = v
+            client_configs[the_config] = {"B": the_value}
+
+
+        # print(f"client_configs:\n{client_configs}\n")
+
 
     # ===================================
-    # print the whole structure
+    # print the original structure
     # ===================================
-    print(f"******************\n{client_info}\n****************")
-    # for x, y in client_info.items():
-    #     print(f"key: {x} - value: {y}")
-    # # client_info["id"] = client_info.pop("_id")
-    # # print(f"id: {client_info['id']}")
-    return True
+    # print(f"******************\n{client_info}\n****************")
+
+    # =============================================
+    # create the new dict to return
+    # =============================================
+    aws_client["clientId"] = {"S": client_id}
+    aws_client["clientName"] = {"S": client_name}
+    aws_client["clientCode"] = {"S": client_code}
+    aws_client["clientUsers"] = {"L": client_users}
+    aws_client["defaultGroups"] = {"L": client_groups}
+    aws_client["clientConfigs"] = {"L": client_configs}
+    return aws_client
 
 
 # This creates output file as array of Meetings in JSON format
@@ -82,22 +102,23 @@ def gen_file_name(file_number):
 
 
 def write_file_header(fp):
-    header_data = "{\"Clients\":[\n"
+    header_data = "{\"meeter-clients\":[\n"
     fp.writelines(header_data)
 
 
 def write_file_footer(fp):
-    footer_data = "]}"
-    fp.writelines(footer_data)
+    fp.writelines("]}")
 
 
 def write_record(fp, record, comma):
     if comma:
-        end_record = ",\n"
+        end_record = "}},\n"
     else:
-        end_record = "\n"
+        end_record = "}}\n"
+    wrapper_start = "{\"PutRequest\": {\"Item\":"
+
     # record_to_write = "{}{}".format(record, end_record)
-    record_to_write = f"{record}{end_record}"
+    record_to_write = f"{wrapper_start}{record}{end_record}"
 
     fp.writelines(record_to_write)
 
@@ -149,7 +170,7 @@ def output_directory_confirmed(output_directory):
         print(f'error: {err}')
 
 
-def create_json_compliant_files():
+def convert_client_definitions():
     # =========================================
     # Set up the definitions for processing
     # =========================================
@@ -179,31 +200,34 @@ def create_json_compliant_files():
     num_lines = sum(1 for line in f)
     f.close()
     # now read through the file
+    # opent the file to write....
+    out_file = open(gen_file_name(file_count), 'w')
     f = open(input_file)
+    write_file_header(out_file)
     for x in f:
         file_pointer += 1
         file_record = x.rstrip('\n')
-        out_file = open(gen_file_name(file_count), 'a')
+        
         if file_size == 0:
-            write_file_header(out_file)
+            # write_file_header(out_file)
+            junk = True
         if file_size < file_limit:
             add_comma = False
             if file_size == (file_limit - 1) or file_pointer == num_lines:
                 add_comma = False
             else:
                 add_comma = True
-            if analyze_record(file_record):
-                print(f"PASSED")
-                exit(0)
-            else:
-                print(f"FAILED")
-                exit(1)
-            write_record(out_file, file_record, add_comma)
+            
+            return_value = analyze_record(file_record)
+            
+            write_record(out_file, json.dumps(return_value), add_comma)
             file_size += 1
             if file_size == file_limit or file_pointer == num_lines:
-                write_file_footer(out_file)
+                # write_file_footer(out_file)
                 file_count += 1
                 file_size = 0
-            out_file.close()
+            # out_file.close()
+    write_file_footer(out_file)
+    out_file.close()
     f.close()
     return True
