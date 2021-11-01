@@ -1,0 +1,15 @@
+[
+{"name": "Joni Colombo", "tenantId": "people-wbc", "__v": 0, "active": true, "birthday": "7/16", "email": "jesusunited777@gmail.com", "gender": "", "notes": "some notes to save", "phone": "(706) 392-0924", "service": "", "shirtSize": "M", "peopleId": "5ef8dc283598c666596c55e2"},
+{"name": "Joe Walters", "tenantId": "people-test", "__v": 0, "active": true, "birthday": "", "email": "joe@work.com", "gender": "m", "notes": "", "phone": "", "service": "", "shirtSize": "", "peopleId": "5ef9bf6a3598c6665998f96e"},
+{"name": "Test Manager", "tenantId": "people-test", "__v": 0, "birthday": "", "email": "test.manager@test.org", "gender": "", "notes": "", "phone": "", "service": "", "shirtSize": "", "peopleId": "5efcdd5332df1383cf76e9fd"},
+{"name": "Rob DiQuattro ", "tenantId": "people-wbc", "__v": 0, "birthday": "", "email": "robbydq@hotmail.com", "gender": "m", "notes": "", "phone": " +1 (706) 464-8897", "service": "", "shirtSize": "", "active": true, "peopleId": "5efd02d032df1383cf8ddf84"},
+{"name": "WBC Guest", "tenantId": "people-wbc", "__v": 0, "birthday": "", "email": "wbc.guest@wbc.org", "gender": "", "notes": "", "phone": "", "service": "", "shirtSize": "", "peopleId": "5efd02dd32df1383cf8de530"},
+{"name": "Test Owner", "tenantId": "people-test", "__v": 0, "birthday": "", "email": "test.owner@test.org", "gender": "", "notes": "", "phone": "", "service": "", "shirtSize": "", "peopleId": "5efe4628f3aa088edbfa2e50"},
+{"name": "Test Guest", "tenantId": "people-test", "__v": 0, "birthday": "", "email": "test.guest@test.org", "gender": "", "notes": "", "phone": "", "service": "", "shirtSize": "", "peopleId": "5eff3ee0f3aa088edb309380"},
+{"name": "Manager CCC", "tenantId": "people-ccc", "__v": 0, "birthday": "", "email": "ccc.manager@ccc.org", "gender": "", "notes": "", "phone": "", "service": "", "shirtSize": "", "peopleId": "5eff54bdf3aa088edb353286"},
+{"name": "test sample", "tenantId": "people-test", "__v": 0, "birthday": "", "email": "test.sample@test.org", "gender": "", "notes": "", "phone": "", "service": "", "shirtSize": "", "peopleId": "5f012c0ef3aa088edbf7f7ef"},
+{"tenantId": "people-test", "__v": 0, "birthday": "", "email": "test.manager@test.org", "gender": "", "name": "Manager Test", "notes": "", "phone": "", "service": "", "shirtSize": "", "peopleId": "5f01cd60f3aa088edb2f2bf6"},
+{"tenantId": "people-wbc", "__v": 0, "active": true, "birthday": "", "email": "oscarvalencia80@gmail.com", "gender": "m", "name": "Oscar Valencia ", "notes": "", "phone": "(706) 289-9169", "service": "", "shirtSize": "", "peopleId": "5f02d46ef3aa088edb90f303"},
+{"tenantId": "people-wbc", "__v": 0, "active": true, "birthday": "", "email": "davebell47@gmail.com", "gender": "m", "name": "Dave Bell", "notes": "", "phone": " 1 (706) 566-0087", "service": "", "shirtSize": "", "peopleId": "5f02d530f3aa088edb913e50"},
+{"tenantId": "people-wbc", "__v": 0, "active": true, "birthday": "", "email": "lenorauhls@gmail.com", "gender": "f", "name": "Lenora Uhls", "notes": "", "phone": " +1 (770) 855-4161", "service": "", "shirtSize": "", "peopleId": "5f02d5d4f3aa088edb916e82"}
+]

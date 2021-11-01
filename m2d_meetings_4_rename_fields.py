@@ -1,6 +1,6 @@
 import json
 import os
-
+import aws_dynamo_utils
 def write_file_header(fp):
     header_data = "{\"Meetings\":[\n"
     fp.writelines(header_data)
@@ -55,28 +55,35 @@ def change_field_names():
             the_entry['facilitatorContact'] = the_entry.pop('facilitator')
 
             # cafeCoordinator => cafeContact
-            the_entry['cafeContact'] = the_entry.pop('cafeCoordinator')
+            if aws_dynamo_utils.search_dict(the_entry, "cafeCoordinator"):
+                the_entry['cafeContact'] = the_entry.pop('cafeCoordinator')
 
             # children => childrenCount
             the_entry['childrenCount'] = the_entry.pop('children')
 
             # mealCnt => mealCount
-            the_entry['mealCount'] = the_entry.pop('mealCnt')
+            if aws_dynamo_utils.search_dict(the_entry, "mealCnt"):
+                the_entry['mealCount'] = the_entry.pop('mealCnt')
 
             # mealCoordinator => mealContact
-            the_entry['mealContact'] = the_entry.pop('mealCoordinator')
+            if aws_dynamo_utils.search_dict(the_entry, "mealCoordinator"):
+                the_entry['mealContact'] = the_entry.pop('mealCoordinator')
 
             # newcomers => newcomersCount
-            the_entry['newcomersCount'] = the_entry.pop('newcomers')
+            if aws_dynamo_utils.search_dict(the_entry, "newcomers"):
+                the_entry['newcomersCount'] = the_entry.pop('newcomers')
 
             # nursery => nurseryCount
-            the_entry['nurseryCount'] = the_entry.pop('nursery')
+            if aws_dynamo_utils.search_dict(the_entry, "nursery"):
+                the_entry['nurseryCount'] = the_entry.pop('nursery')
 
             # supportRole => supportContact
-            the_entry['supportContact'] = the_entry.pop('supportRole')
+            if aws_dynamo_utils.search_dict(the_entry, "supportRole"):
+                the_entry['supportContact'] = the_entry.pop('supportRole')
 
             # youth => youthCount
-            the_entry['youthCount'] = the_entry.pop('youth')
+            if aws_dynamo_utils.search_dict(the_entry, "youth"):
+                the_entry['youthCount'] = the_entry.pop('youth')
 
            # write the record, add comma unless last record
             write_record(f,the_entry,entry != data['Meetings'][-1])

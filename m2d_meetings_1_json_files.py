@@ -84,7 +84,8 @@ def create_json_compliant_files():
 
     # file to read
     input_directory = "./json_files/mongo-export-files/meetings/"
-    input_file_name = "mongo-meetings-small.json"
+    input_file_name = "mongo-meetings.json"
+    #input_file_name = "mongo-meetings-small.json"
     input_file = f"{input_directory}{input_file_name}"
     # directory location for output files
     output_directory = "./json_files/aws-ready-files/meetings"

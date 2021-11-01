@@ -24,6 +24,7 @@ def write_file_footer(fp):
 
 
 def add_dynamo_data_types():
+    return True
     file_directory = './json_files/aws-ready-files/meetings/'
     aws_files = []
     for entry in os.listdir(file_directory):

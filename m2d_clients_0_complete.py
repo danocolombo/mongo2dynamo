@@ -36,7 +36,8 @@ def analyze_record(record):
         read_users = client_info["users"]
         for x in read_users:
             stripped_id = clean_id(x["_id"])
-            group_info = {"userId": {"S": stripped_id}, "role": {"S": x['role']}, "status": {"S": x['status']}}
+            # group_info = {"userId": {"S": stripped_id}, "role": {"S": x['role']}, "status": {"S": x['status']}}
+            group_info = {"userId": stripped_id, "role": x['role'], "status": x['status']}
             client_users.append(group_info)
             
         # print(f"users: {client_users}\n")
@@ -51,7 +52,8 @@ def analyze_record(record):
         
         for x in read_groups:
             stripped_id = clean_id(x["_id"])
-            client_groups.append({"group_id": {"S": stripped_id}, "gender": {"S": x['gender']}, "title": {"S": x['title']}, "location": {"S":x['location']}, "facilitator": {"S": x['facilitator']}})
+            # client_groups.append({"group_id": {"S": stripped_id}, "gender": {"S": x['gender']}, "group_itle": {"S": x['title']}, "location": {"S":x['location']}, "facilitator": {"S": x['facilitator']}})
+            client_groups.append({"group_id": stripped_id, "gender": x['gender'], "group_itle": x['title'], "location": x['location'], "facilitator": x['facilitator']})
             
             # client_users.insert(str(f"id: {stripped_id}"))
 
@@ -71,7 +73,7 @@ def analyze_record(record):
                     the_config = v
                 elif k == "value":
                     the_value = v
-            client_configs[the_config] = {"B": the_value}
+            client_configs[the_config] = the_value
 
 
         # print(f"client_configs:\n{client_configs}\n")
@@ -85,12 +87,15 @@ def analyze_record(record):
     # =============================================
     # create the new dict to return
     # =============================================
-    aws_client["clientId"] = {"S": client_id}
-    aws_client["clientName"] = {"S": client_name}
-    aws_client["clientCode"] = {"S": client_code}
-    aws_client["clientUsers"] = {"L": client_users}
-    aws_client["defaultGroups"] = {"L": client_groups}
-    aws_client["clientConfigs"] = {"L": client_configs}
+    aws_client["clientId"] = client_id
+    aws_client["clientName"] = client_name
+    aws_client["clientCode"] = client_code
+    aws_client["clientUsers"] = client_users
+    if len(client_groups) > 0:
+        aws_client["defaultGroups"] = client_groups
+    else:
+        print(f"NO DEFAULT GROUPS")
+    aws_client["clientConfigs"] = client_configs
     return aws_client
 
 
@@ -102,21 +107,27 @@ def gen_file_name(file_number):
 
 
 def write_file_header(fp):
-    header_data = "{\"meeter-clients\":[\n"
+    header_data = "{\"mtrClients\":[\n"
+    header_data = "["
     fp.writelines(header_data)
 
 
 def write_file_footer(fp):
-    fp.writelines("]}")
+    footer_data = "]}"
+    footer_data = "]"
+    fp.writelines(footer_data)
 
 
 def write_record(fp, record, comma):
     if comma:
         end_record = "}},\n"
+        end_record = ",\n"
     else:
         end_record = "}}\n"
-    wrapper_start = "{\"PutRequest\": {\"Item\":"
-
+        end_record = "\n"
+    # wrapper_start = "{\"PutRequest\": {\"Item\":"
+    wrapper_start = ""
+    # end_record = ""
     # record_to_write = "{}{}".format(record, end_record)
     record_to_write = f"{wrapper_start}{record}{end_record}"
 

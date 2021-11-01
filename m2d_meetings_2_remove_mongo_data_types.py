@@ -62,7 +62,8 @@ def remove_mongo_data_types():
             fresh_meeting = list(the_meeting)
 
             # REMOVE MONGO __v
-            the_entry.pop("__v")
+            if aws_dynamo_utils.search_dict(the_entry, "__v"):
+                the_entry.pop("__v")
             # CLEAN ID
             the_entry['_id'] = clean_id(the_entry['_id'])
             # CLEAN meetingDate

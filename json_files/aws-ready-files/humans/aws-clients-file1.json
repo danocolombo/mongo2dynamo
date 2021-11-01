@@ -1,4 +1,4 @@
-{"meeter-humans":[
+{"mtrHumans":[
 {"PutRequest": {"Item":{"name": {"S": "WBC volunteer"}, "tenantId": {"S": "wbc"}, "__v": 0, "active": {"B": "True"}, "birthday": {"S": ""}, "email": {"S": ""}, "gender": {"S": ""}, "phone": {"S": "() -"}, "service": {"S": ""}, "shirtSize": {"S": ""}, "humanId": {"S": "5eeabc400add05bb6ad8b65f"}}}},
 {"PutRequest": {"Item":{"name": {"S": "CPV volunteer"}, "tenantId": {"S": "cpv"}, "__v": 0, "active": {"B": "True"}, "birthday": {"S": ""}, "email": {"S": ""}, "gender": {"S": ""}, "phone": {"S": "() -"}, "service": {"S": ""}, "shirtSize": {"S": ""}, "humanId": {"S": "5eeabc540add05bb6ad8c3cf"}}}},
 {"PutRequest": {"Item":{"name": {"S": "CCC volunteer"}, "tenantId": {"S": "ccc"}, "__v": 0, "active": {"B": "True"}, "birthday": {"S": ""}, "email": {"S": ""}, "gender": {"S": ""}, "phone": {"S": "() -"}, "service": {"S": ""}, "shirtSize": {"S": ""}, "humanId": {"S": "5eeabc5e0add05bb6ad8c9a7"}}}},
