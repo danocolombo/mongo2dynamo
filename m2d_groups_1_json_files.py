@@ -84,7 +84,11 @@ def create_json_compliant_files():
 
     # file to read
     input_directory = "./json_files/mongo-export-files/groups/"
-    input_file_name = "mongo-groups-small.json"
+    input_file_name = "mongo-groups.json"
+    # input_file_name = "mongo-groups-bad1.json"
+    # input_file_name = "mongo-groups-good2.json"
+    # input_file_name = "mongo-groups-small.json"
+    # input_file_name = "mongo-groups-no-objects.json"
     input_file = f"{input_directory}{input_file_name}"
     # directory location for output files
     output_directory = "./json_files/aws-ready-files/groups"

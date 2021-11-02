@@ -43,32 +43,49 @@ def remove_mongo_data_types():
         if os.path.isfile(os.path.join(file_directory, entry)):
             # print(entry)
             aws_files.append(entry)
+    
     for aws_file in aws_files:
-        full_file_name = file_directory + aws_file
-        # Opening JSON file
-        f = open(full_file_name, )
+        data = {}
+        the_entry = {}
+        dead = False
+        try:
+            full_file_name = file_directory + aws_file
+            # Opening JSON file
+            f = open(full_file_name, )
 
-        # returns JSON object as
-        # a dictionary
-        data = json.load(f)
-        f.close()
-        # Iterating through the json
-        # list
-        f = open(full_file_name, "w")
-        write_file_header(f)
-        for entry in data['Groups']:
-            the_entry = entry
-            # the_group = json.dumps(entry)
-            # fresh_group = list(the_group)
+            # returns JSON object as
+            # a dictionary
+            data = json.load(f)
+            f.close()
+            # Iterating through the json
+            # list
+            f = open(full_file_name, "w")
+            write_file_header(f)
+            for entry in data['Groups']:
+                the_entry = entry
+                # the_group = json.dumps(entry)
+                # fresh_group = list(the_group)
 
-            # REMOVE MONGO __v
-            the_entry.pop("__v")
-            # CLEAN ID
-            the_entry['_id'] = clean_id(the_entry['_id'])
+                # REMOVE MONGO __v
+                if aws_dynamo_utils.search_dict(the_entry, "__v"):
+                    the_entry.pop("__v")
+                # CLEAN ID
+                if aws_dynamo_utils.search_dict(the_entry, "_id"):
+                    the_entry['_id'] = clean_id(the_entry['_id'])
+                else:
+                    print(f"NO _id, now that is not supposed to happen")
 
 
-            # write the record, add comma unless last record
-            write_record(f, the_entry, entry != data['Groups'][-1])
-        write_file_footer(f)
-        f.close()
+                # write the record, add comma unless last record
+                write_record(f, the_entry, entry != data['Groups'][-1])
+            write_file_footer(f)
+            f.close()
+        except Exception as err:
+            print(f"{err}")
+            junk = input('ERROR-THROWN')
+            print(f"the_entry:\n{the_entry}")
+            dead = True
+        finally:
+            if dead:
+                print(f"finally: \n{the_entry['_id']}")
     return True

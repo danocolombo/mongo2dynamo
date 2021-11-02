@@ -3,16 +3,20 @@ import os
 
 
 def write_file_header(fp):
-    header_data = "{\"meeter-groups\":[\n"
+    header_data = "{\"mtrGroups\":[\n"
+    header_data = "["
     fp.writelines(header_data)
 
 
 def write_record(fp, record, comma):
     if comma:
         end_record = "}},\n"
+        end_record = ",\n"
     else:
         end_record = "}}\n"
+        end_record = "\n"
     wrapper_start = "{\"PutRequest\": {\"Item\":"
+    wrapper_start = ""
 
     # record_to_write = "{}{}".format(record, end_record)
     record_to_write = f"{wrapper_start}{json.dumps(record)}{end_record}"
@@ -21,7 +25,7 @@ def write_record(fp, record, comma):
 
 
 def write_file_footer(fp):
-    fp.writelines("]}")
+    fp.writelines("]")
 
 
 def dynamodb_wrapper():

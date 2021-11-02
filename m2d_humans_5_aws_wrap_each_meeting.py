@@ -3,7 +3,7 @@ import os
 
 
 def write_file_header(fp):
-    header_data = "{\"meeter-humans\":[\n"
+    header_data = "{\"mtrHumans\":[\n"
     fp.writelines(header_data)
 
 

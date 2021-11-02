@@ -1,0 +1,114 @@
+Below you will find the example lambda function (pythong 3.8)
+
+Initially the idea was to have the lambda run once and process all the files provided. The issue became that the lambda would time out if there were too many records to process.
+So the idea was to use the code to either run a manual upload, or have it triggered by an S3 event on the bucket.
+
+The bucket ended up being like a queue process. When a file was dropped in one of the folders, the lambda would be triggered and the file processed.
+If there was a problem with the input file, the lambda could be run manually, and the trouble file would already be in S3 and the lambda would attempt to process it again.
+
+To use the queue concept, after each file is loaded to bucket and processed to dynamodb, the file needs to be removed (otherwise it will be processed again on the next run)
+We were able to process some files up to 100 records in a file, but not sure of the threshold before a timeout is experienced.
+
+FUTURE...
+This could be modified in the future to actually write the file to the S3 bucket, do a delay for processing, and remove the file and move on to next file. But for now all interactions with AWS are mnanual.
+
+BUCKET:
+s3://meeter-load-queue
+with the following folders created for each database table.
+groups/
+meetings/
+people/
+
+**NOTE: the client table was so small that the file was manually run and loaded before the trigger and folders were setup, that is why there is no client portion in the lambda, but can be added in same fashion, if needed.
+
+
+import json
+import boto3
+# s3_client = boto3.client('s3')
+# s3 = boto3.resource('s3')
+
+dynamodb = boto3.resource('dynamodb')
+
+def lambda_handler(event, context):
+    
+    # ===============================================
+    # this should loop through the main bucket
+    # ===============================================
+    file_names = []
+    bucket = 'meeter-load-queue'
+    client = boto3.client('s3')
+    s3_client = boto3.client('s3')
+    paginator = client.get_paginator('list_objects_v2')
+    result = paginator.paginate(Bucket=bucket,StartAfter='2018')
+    for page in result:
+        if "Contents" in page:
+            for key in page[ "Contents" ]:
+                keyString = key[ "Key" ]
+                # print(keyString)
+                file_names.append(keyString)
+                
+    # identify directories and files
+    print('All objects')
+    for f in file_names:
+        print(f"file found: {f}")
+    
+    # ========================================
+    # load GROUPS
+    # ========================================
+    groups_record_cnt = 0
+    for f in file_names:
+        if "groups" in f:
+            if len(f) > 7:
+                print(f'length of f: {len(f)}')
+                print(f'employee file found: {f}')
+                json_file = f
+                print(f'json_file: {json_file}')
+                json_object = client.get_object(Bucket=bucket, Key=json_file)
+                json_file_reader = json_object['Body'].read()
+                json_dict = json.loads(json_file_reader)
+                table = dynamodb.Table('mtrGroups')
+                for r in json_dict:
+                    table.put_item(Item=r)
+                    groups_record_cnt += 1
+
+                
+    # ========================================
+    # load MEETINGS
+    # ========================================
+    meetings_record_cnt = 0
+    for f in file_names:
+        if "meetings" in f:
+            if len(f) > 9:
+                json_file = f
+                print(f'json_file: {json_file}')
+                json_object = client.get_object(Bucket=bucket, Key=json_file)
+                json_file_reader = json_object['Body'].read()
+                json_dict = json.loads(json_file_reader)
+                table = dynamodb.Table('mtrMeetings')
+                for r in json_dict:
+                    table.put_item(Item=r)
+                    meetings_record_cnt += 1
+                
+    # ========================================
+    # load PEOPLE
+    # ========================================
+    people_record_cnt = 0
+    for f in file_names:
+        if "people" in f:
+            if len(f) > 7:
+                json_file = f
+                print(f'json_file: {json_file}')
+                json_object = client.get_object(Bucket=bucket, Key=json_file)
+                json_file_reader = json_object['Body'].read()
+                json_dict = json.loads(json_file_reader)
+                table = dynamodb.Table('mtrPeople')
+                for r in json_dict:
+                    table.put_item(Item=r)
+                    people_record_cnt += 1         
+                
+   
+    return {
+        'statusCode': 200,
+        'body': json.dumps('Meeter DynamoDB data loader'),
+        'Files processed': str(f'G:{groups_record_cnt} M:{meetings_record_cnt} P:{people_record_cnt} ')
+    }

@@ -77,14 +77,15 @@ def create_json_compliant_files():
     # =========================================
     # Set up the definitions for processing
     # =========================================
-    file_limit = 25  # number of lines from origin to put in new files
+    file_limit = 50  # number of lines from origin to put in new files
     file_size = 0  # used for writing location
     file_count = 1  # used to create the files names
     file_pointer = 0
 
     # file to read
     input_directory = "./json_files/mongo-export-files/meetings/"
-    input_file_name = "mongo-meetings-small.json"
+    input_file_name = "mongo-meetings.json"
+    #input_file_name = "mongo-meetings-small.json"
     input_file = f"{input_directory}{input_file_name}"
     # directory location for output files
     output_directory = "./json_files/aws-ready-files/meetings"

@@ -5,6 +5,7 @@ import aws_dynamo_utils
 
 def write_file_header(fp):
     header_data = "{\"Groups\":[\n"
+    # header_data = "["
     fp.writelines(header_data)
 
 
@@ -20,7 +21,9 @@ def write_record(fp, record, comma):
 
 
 def write_file_footer(fp):
-    fp.writelines("]}")
+    footer_data = "]}"
+    # footer_data = "]"
+    fp.writelines(footer_data)
 
 
 def add_dynamo_data_types():
@@ -46,23 +49,32 @@ def add_dynamo_data_types():
         for entry in data['Groups']:
             the_entry = entry
             if aws_dynamo_utils.search_dict(the_entry, "_id"):
-                the_entry['_id'] = aws_dynamo_utils.label_as_string(the_entry['_id'])
+                # the_entry['_id'] = aws_dynamo_utils.label_as_string(the_entry['_id'])
+                the_entry['_id'] = the_entry['_id']
             if aws_dynamo_utils.search_dict(the_entry, "gender"):
-                the_entry['gender'] = aws_dynamo_utils.identify_field(the_entry['gender'], "S")
+                # the_entry['gender'] = aws_dynamo_utils.identify_field(the_entry['gender'], "S")
+                the_entry['gender'] = the_entry['gender']
             if aws_dynamo_utils.search_dict(the_entry, "mid"):
-                the_entry['mid'] = aws_dynamo_utils.identify_field(the_entry['mid'], "S")
+                # the_entry['mid'] = aws_dynamo_utils.identify_field(the_entry['mid'], "S")
+                the_entry['mid'] = the_entry['mid']
             if aws_dynamo_utils.search_dict(the_entry, "title"):
-                the_entry['title'] = aws_dynamo_utils.identify_field(the_entry['title'], "S")
+                # the_entry['title'] = aws_dynamo_utils.identify_field(the_entry['title'], "S")
+                the_entry['title'] = the_entry['title']
             if aws_dynamo_utils.search_dict(the_entry, "attendance"):
-                the_entry['attendance'] = aws_dynamo_utils.identify_field(the_entry['attendance'], "N")
+                # the_entry['attendance'] = aws_dynamo_utils.identify_field(the_entry['attendance'], "N")
+                the_entry['attendance'] = the_entry['attendance']
             if aws_dynamo_utils.search_dict(the_entry, "cofacilitator"):
-                the_entry['cofacilitator'] = aws_dynamo_utils.identify_field(the_entry['cofacilitator'], "S")
+                # the_entry['cofacilitator'] = aws_dynamo_utils.identify_field(the_entry['cofacilitator'], "S")
+                the_entry['cofacilitator'] = the_entry['cofacilitator']
             if aws_dynamo_utils.search_dict(the_entry, "facilitator"):
-                the_entry['facilitator'] = aws_dynamo_utils.identify_field(the_entry['facilitator'], "S")
+                # the_entry['facilitator'] = aws_dynamo_utils.identify_field(the_entry['facilitator'], "S")
+                the_entry['facilitator'] = the_entry['facilitator']
             if aws_dynamo_utils.search_dict(the_entry, "location"):
-                the_entry['location'] = aws_dynamo_utils.identify_field(the_entry['location'], "S")
+                # the_entry['location'] = aws_dynamo_utils.identify_field(the_entry['location'], "S")
+                the_entry['location'] = the_entry['location']
             if aws_dynamo_utils.search_dict(the_entry, "notes"):
-                the_entry['notes'] = aws_dynamo_utils.identify_field(the_entry['notes'], "S")
+                # the_entry['notes'] = aws_dynamo_utils.identify_field(the_entry['notes'], "S")
+                the_entry['notes'] = the_entry['notes']
 
             # write the record, add comma unless last record
             write_record(f, the_entry, entry != data['Groups'][-1])

@@ -4,7 +4,7 @@ import glob
 
 # This creates output file as array of Meetings in JSON format
 def gen_file_name(file_number):
-    temp = './json_files/aws-ready-files/peoples/aws-peoples-file' + str(file_number) + '.json'
+    temp = './json_files/aws-ready-files/peoples/aws-people-file' + str(file_number) + '.json'
     return temp
 
 
@@ -77,7 +77,7 @@ def create_json_compliant_files():
     # =========================================
     # Set up the definitions for processing
     # =========================================
-    file_limit = 25  # number of lines from origin to put in new files
+    file_limit = 100  # number of lines from origin to put in new files
     file_size = 0  # used for writing location
     file_count = 1  # used to create the files names
     file_pointer = 0
