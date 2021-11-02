@@ -15,6 +15,31 @@ def clean_meeting_date(toxic):
     actual_date = toxic['$date'][:10]
     return actual_date
 
+def donations2pennies(donation):
+    # this converts the value to 100th of a dollar
+    # first strip the Mondo type off the value
+    # actual_value = float(donation['$numberDecimal'])
+    pennies = 0
+    if isinstance(donation, dict):
+        # print(f"It is dict")
+        # print(f"dict: >>{donation}<<")
+        new_value = donation['$numberDecimal']
+        # print(f"new_value: {new_value}")
+        pennies = int(float(new_value) * 100)
+        # print(f"pennies: {pennies}")
+    else:
+        # print(f"nope")
+        # print(f"donation type: {type(donation)}")
+        if isinstance(donation, int):
+            if donation == 0:
+                pennies = 0
+            else:
+                pennies = donation * 100
+    # pennies = actual_value * 100
+    # return pennies
+    return pennies
+    
+
 
 def write_file_header(fp):
     header_data = "{\"Meetings\":[\n"
@@ -68,6 +93,10 @@ def remove_mongo_data_types():
             the_entry['_id'] = clean_id(the_entry['_id'])
             # CLEAN meetingDate
             the_entry['meetingDate'] = clean_meeting_date(the_entry['meetingDate'])
+
+            # need to convert values for donations to pennies
+            if aws_dynamo_utils.search_dict(the_entry, "donations"):
+                the_entry['donations'] = donations2pennies(the_entry['donations'])
 
             # write the record, add comma unless last record
             write_record(f, the_entry, entry != data['Meetings'][-1])
