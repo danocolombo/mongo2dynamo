@@ -19,6 +19,10 @@ def write_record(fp, record, comma):
 def write_file_footer(fp):
     fp.writelines("]}")
 
+def convertClientId(var):
+    # this receives the mongo client value and we need to simplify
+    # Mongo: meeting-wbc  =>  wbc
+    return var[-3:]
 
 def change_field_names():
     file_directory = './json_files/aws-ready-files/meetings/'
@@ -84,6 +88,11 @@ def change_field_names():
             # youth => youthCount
             if aws_dynamo_utils.search_dict(the_entry, "youth"):
                 the_entry['youthCount'] = the_entry.pop('youth')
+
+            # tenantId => clientId AND strip value to acronym
+            if aws_dynamo_utils.search_dict(the_entry, "tenantId"):
+                the_entry['clientId'] = convertClientId(the_entry.pop('tenantId'));
+
 
            # write the record, add comma unless last record
             write_record(f,the_entry,entry != data['Meetings'][-1])
