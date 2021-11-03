@@ -1,9 +1,9 @@
 # mongo2dynamo conversion
-import m2d_meetings_1_json_files
-import m2d_meetings_2_remove_mongo_data_types
-import m2d_meetings_3_add_dynamodb_data_types
-import m2d_meetings_4_rename_fields
-import m2d_meetings_5_aws_wrap_each_meeting
+from m2d_meetings_1_json_files import create_json_compliant_files as meetings_json_files
+from m2d_meetings_2_remove_mongo_data_types import remove_mongo_data_types as meetings_remove_mongo_types
+from m2d_meetings_3_add_dynamodb_data_types import add_dynamo_data_types as meetings_add_dynamo_types
+from m2d_meetings_4_rename_fields import change_field_names as meetings_change_fields
+from m2d_meetings_5_aws_wrap_each_meeting import dynamodb_wrapper as meetings_dynamo_wrapper
 import m2d_groups_1_json_files
 import m2d_groups_2_remove_mongo_data_types
 import m2d_groups_3_add_dynamodb_data_types
@@ -23,16 +23,16 @@ import m2d_peoples_5_aws_wrap_each_meeting
 # DO MEETINGS
 try:
     # convert the Meetings data
-    if m2d_meetings_1_json_files.create_json_compliant_files():
+    if meetings_json_files():
         print(f"1. mongo data transformed to json [aws-ready-files produced]")
         # strip out the mongo data types
-        if m2d_meetings_2_remove_mongo_data_types.remove_mongo_data_types():
+        if meetings_remove_mongo_types():
             print(f"2. Mongo data types removed")
-            if m2d_meetings_3_add_dynamodb_data_types.add_dynamo_data_types():
+            if meetings_add_dynamo_types():
                 print(f"3. Dynamo data types added")
-                if m2d_meetings_4_rename_fields.change_field_names():
-                    print(f"4. Dynamo fields renamed")
-                    if m2d_meetings_5_aws_wrap_each_meeting.dynamodb_wrapper():
+                if meetings_change_fields():
+                    print(f"4. Dynamo fields changed")
+                    if meetings_dynamo_wrapper():
                         print(f"5. Dynamo wrappers applied")
                     else:
                         print(f"dynamodb_wrapper(): error")
