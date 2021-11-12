@@ -5,13 +5,24 @@ import aws_dynamo_utils
 
 def clean_id(toxic):
     # this gets dict value for id
-    actual_value = toxic['$oid']
+    # we can have two different formats....
+    # {'$oid': '60874224194cadb9cca5798c'} #dict
+    # ObjectId(5eaf6ef6a97c783041c0ed8b)   #string
+    if isinstance(toxic, str):
+        # print(f"string")
+        actual_value = toxic[9:-1]
+    elif isinstance(toxic, dict):
+        # print(f"dict")
+        actual_value = toxic['$oid']
+    # print(f"actual_value now: {actual_value}")
+
     return actual_value
 
 
 def clean_meeting_date(toxic):
     # this gets dict value for date and returns the date value
     # dict name is $date and want to only return date of long time stamp
+    print(f"toxic_date: {toxic}")
     actual_date = toxic['$date'][:10]
     return actual_date
 
@@ -43,7 +54,7 @@ def remove_mongo_data_types():
         if os.path.isfile(os.path.join(file_directory, entry)):
             # print(entry)
             aws_files.append(entry)
-    
+
     for aws_file in aws_files:
         data = {}
         the_entry = {}
@@ -74,7 +85,6 @@ def remove_mongo_data_types():
                     the_entry['_id'] = clean_id(the_entry['_id'])
                 else:
                     print(f"NO _id, now that is not supposed to happen")
-
 
                 # write the record, add comma unless last record
                 write_record(f, the_entry, entry != data['Groups'][-1])

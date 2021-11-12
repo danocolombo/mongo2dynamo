@@ -53,7 +53,7 @@ def analyze_record(record):
         for x in read_groups:
             stripped_id = clean_id(x["_id"])
             # client_groups.append({"group_id": {"S": stripped_id}, "gender": {"S": x['gender']}, "group_itle": {"S": x['title']}, "location": {"S":x['location']}, "facilitator": {"S": x['facilitator']}})
-            client_groups.append({"group_id": stripped_id, "gender": x['gender'], "group_itle": x['title'], "location": x['location'], "facilitator": x['facilitator']})
+            client_groups.append({"groupId": stripped_id, "gender": x['gender'], "groupTitle": x['title'], "location": x['location'], "facilitator": x['facilitator']})
             
             # client_users.insert(str(f"id: {stripped_id}"))
 

@@ -20,6 +20,7 @@ import m2d_peoples_2_remove_mongo_data_types
 import m2d_peoples_3_add_dynamodb_data_types
 import m2d_peoples_4_rename_fields
 import m2d_peoples_5_aws_wrap_each_meeting
+
 # DO MEETINGS
 try:
     # convert the Meetings data
